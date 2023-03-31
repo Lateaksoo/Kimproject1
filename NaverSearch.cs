@@ -55,26 +55,11 @@ namespace Kimproject1
 
 
             return (text);
+
+           
         }
 
     }
 }
 
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    dynamic result = JsonConvert.DeserializeObject(naver());
-        //    List<double> ratios = new List<double>();
-        //    foreach (var data in result.results[0].data)
-        //    {
-        //        ratios.Add((double)data.ratio);
-        //    }
-
-        //    chart1.Series.Clear();
-        //    Series series = chart1.Series.Add("글록17 검색 비율");
-        //    series.ChartType = SeriesChartType.Column;
-        //    for (int i = 0; i < ratios.Count; i++)
-        //    {
-        //        series.Points.AddXY(i + 1, ratios[i]);
-        //    }
-        //}
