@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kimproject1
 {
-    internal class Kims
+    internal class Manager
     {
     }
 }
