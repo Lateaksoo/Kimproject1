@@ -31,22 +31,23 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabProductManagement = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.comboBoxAge = new System.Windows.Forms.ComboBox();
+            this.comboBoxSex = new System.Windows.Forms.ComboBox();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -86,16 +87,16 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dateTimePicker2);
-            this.tabPage1.Controls.Add(this.dateTimePicker1);
-            this.tabPage1.Controls.Add(this.comboBox2);
+            this.tabPage1.Controls.Add(this.dtpEndDate);
+            this.tabPage1.Controls.Add(this.dtpStartDate);
+            this.tabPage1.Controls.Add(this.comboBoxSex);
             this.tabPage1.Controls.Add(this.chart1);
-            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.comboBoxAge);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.btnSearch);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.txtSearch);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -134,12 +135,12 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // textBox1
+            // txtSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(93, 43);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(113, 21);
-            this.textBox1.TabIndex = 5;
+            this.txtSearch.Location = new System.Drawing.Point(93, 43);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(113, 21);
+            this.txtSearch.TabIndex = 5;
             // 
             // label1
             // 
@@ -186,43 +187,47 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "종료일";
             // 
-            // comboBox1
+            // comboBoxAge
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxAge.FormattingEnabled = true;
+            this.comboBoxAge.Items.AddRange(new object[] {
             "10대",
             "20대",
             "30대",
             "40대"});
-            this.comboBox1.Location = new System.Drawing.Point(95, 97);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(111, 20);
-            this.comboBox1.TabIndex = 15;
+            this.comboBoxAge.Location = new System.Drawing.Point(95, 97);
+            this.comboBoxAge.Name = "comboBoxAge";
+            this.comboBoxAge.Size = new System.Drawing.Size(111, 20);
+            this.comboBoxAge.TabIndex = 15;
+            this.comboBoxAge.SelectedIndexChanged += new System.EventHandler(this.comboBoxAge_SelectedIndexChanged);
             // 
-            // comboBox2
+            // comboBoxSex
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.comboBoxSex.FormattingEnabled = true;
+            this.comboBoxSex.Items.AddRange(new object[] {
             "남",
             "여"});
-            this.comboBox2.Location = new System.Drawing.Point(95, 145);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(111, 20);
-            this.comboBox2.TabIndex = 16;
+            this.comboBoxSex.Location = new System.Drawing.Point(95, 145);
+            this.comboBoxSex.Name = "comboBoxSex";
+            this.comboBoxSex.Size = new System.Drawing.Size(111, 20);
+            this.comboBoxSex.TabIndex = 16;
+            this.comboBoxSex.SelectedIndexChanged += new System.EventHandler(this.comboBoxSex_SelectedIndexChanged);
             // 
-            // dateTimePicker1
+            // dtpStartDate
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(93, 194);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(113, 21);
-            this.dateTimePicker1.TabIndex = 17;
+            this.dtpStartDate.Location = new System.Drawing.Point(93, 194);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(113, 21);
+            this.dtpStartDate.TabIndex = 17;
+            this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
             // 
-            // dateTimePicker2
+            // dtpEndDate
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(93, 257);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(113, 21);
-            this.dateTimePicker2.TabIndex = 18;
+            this.dtpEndDate.Location = new System.Drawing.Point(93, 257);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(113, 21);
+            this.dtpEndDate.TabIndex = 18;
+            this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
             // 
             // Form1
             // 
@@ -230,8 +235,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 493);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "SHOOTERS CLUB";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -248,16 +254,16 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.ComboBox comboBoxAge;
+        private System.Windows.Forms.ComboBox comboBoxSex;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
     }
 }
 

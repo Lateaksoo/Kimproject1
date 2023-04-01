@@ -1,35 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Kimproject1
 {
     internal class NaverSearch
     {
-        public string naver()
+        public string naver(string serarch ,string startDate , string endDate ,string sex, string age)
         {
-            const string ClientId = "VtMF3sZjkx3ZpUODF_Zi";
-            const string ClientSECRET = "M4XgPPJUUX";
+        Form1 form1 = new Form1();
+            
+
+            const string ClientId = "VtMF3sZjkx3ZpUODF_Zi"; //네이버 api 아이디
+            const string ClientSECRET = "M4XgPPJUUX";       //네이버 api 비번
 
             string url = "https://openapi.naver.com/v1/datalab/search";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -37,10 +23,26 @@ namespace Kimproject1
             request.Headers.Add("X-Naver-Client-Secret", ClientSECRET);
             request.ContentType = "application/json";
             request.Method = "POST";
-            string body = "{\"startDate\":\"2017-01-01\",\"endDate\":\"2022-04-30\",\"timeUnit\":\"month\",\"keywordGroups\":[{\"groupName\":\"글록17\",\"keywords\":[\"총\"]}],\"device\":\"pc\",\"ages\":[\"1\",\"2\",\"3\",\"4\"]}";
+
+       
+
+            string body1 = $"{{\"startDate\":\"{startDate}\"," +
+              $"\"endDate\":\"{endDate}\"," +
+              $"\"timeUnit\":\"month\"," +
+              $"\"keywordGroups\":" +
+              $"[{{\"groupName\":\"{serarch}\",\"keywords\":[\"총\"]}}]," +
+              $"\"device\":\"pc\",\"ages\":[\"{age}\"]}}";
 
 
-            byte[] byteDataParams = Encoding.UTF8.GetBytes(body);
+            string body = "{\"startDate\":\"2017-01-01\"," +
+                           "\"endDate\":\"2022-04-30\"," +
+                           "\"timeUnit\":\"month\"," +
+                           "\"keywordGroups\":" +
+                           "[{\"groupName\":\"글록17\",\"keywords\":[\"총\"]}]," +
+                           "\"device\":\"pc\",\"ages\":[\"1\",\"2\",\"3\",\"4\"]}";
+
+
+            byte[] byteDataParams = Encoding.UTF8.GetBytes(body1);
             request.ContentLength = byteDataParams.Length;
             Stream st = request.GetRequestStream();
             st.Write(byteDataParams, 0, byteDataParams.Length);
