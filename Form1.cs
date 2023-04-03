@@ -1,84 +1,117 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Runtime.InteropServices.ComTypes;
+
 
 
 namespace Kimproject1
 {
+    
     public partial class Form1 : Form
     {
         NaverSearch naverSearch = new NaverSearch();
-     
+        Manager manager;
         public string search;
         public string startDate;
         public string endDate;
         public string age;
-        public string sex;
-        
+        public string gender;
 
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            search = txtSearch.Text;
+            bool isAnyChecked = false; // 체크박스가 한 개 이상 체크되었는지 확인하는 변수
+            CheckBox[] checkBoxes = { check10, check20, check30, check40, check50, check60, check70, check80 };
+            age = "";
+            foreach (var checkBox in checkBoxes)
+            {
+                if (checkBox.Checked) //체크된 값들을 문자열로 만들기 
+                {
+                    age += $"{checkBox.Text.Replace("대", "")}\",\"";
+                    isAnyChecked = true;
+                }
+            }
+            if (age.EndsWith("\",\"")) //마지막에는 \",\"를 지워줘야 한다.
+            {
+                age = age.Remove(age.Length - 3);
+            }
+            if (!isAnyChecked) // 체크박스가 한 개 이상 체크되지 않았을 경우
+            {
+                MessageBox.Show("나이를 선택해주세요.");
+                return; // 메소드 실행 중지
+            }
+
             dynamic result =
-                JsonConvert.DeserializeObject(naverSearch.naver(search, startDate, endDate, sex,age));
+            JsonConvert.DeserializeObject(naverSearch.naver(search, startDate, endDate, gender, age));
             List<double> ratios = new List<double>();
             foreach (var data in result.results[0].data)
             {
                 ratios.Add((double)data.ratio);
             }
-
+           
             chart1.Series.Clear();
-            Series series = chart1.Series.Add($"{search} 검색 비율");
+            Series series = chart1.Series.Add($"{comboBoxSearch.Text} 검색 비율");
             series.ChartType = SeriesChartType.Column;
             for (int i = 0; i < ratios.Count; i++)
             {
                 series.Points.AddXY(i + 1, ratios[i]);
             }
+
+
         }
 
 
-
-
+        
 
 
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
+            startDate = "";
             startDate = dtpStartDate.Value.ToString("yyyy-MM-dd");
         }
 
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
+            endDate = "";
             endDate = dtpEndDate.Value.ToString("yyyy-MM-dd");
         }
 
-        private void comboBoxAge_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (comboBoxAge.Text)
-            {
-                case "10대": age = "1"; break;
-                case "20대": age = "2"; break;
-                case "30대": age = "3"; break;
-                case "40대": age = "4"; break;
-            }
-        }
 
         private void comboBoxSex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sex = comboBoxSex.Text;
+            gender = "";
+            switch (comboBoxSex.Text)
+            {
+                case "남": gender = "m"; break;
+                case "여": gender = "f"; break;
+            }
+        }
+
+        private void comboBoxSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            search = "";
+            switch (comboBoxSearch.Text)
+            {
+                case "데스크탑": search = "\"name\":\"데스크탑\",\"param\":[\"50000089\"]"; break;
+                case "노트북": search = "\"name\":\"노트북\",\"param\":[\"50000151\"]"; break;
+                case "모니터": search = "\"name\":\"모니터\",\"param\":[\"50000153\"]"; break;
+                case "키보드/마우스": search = "\"name\":\"키보드/마우스\",\"param\":[\"50002927\"]"; break;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBoxSearch.SelectedIndex = 0;
+            comboBoxSex.SelectedIndex = 0;
+            dtpStartDate.Value = DateTime.Now.AddMonths(-1);
+            dtpEndDate.Value = DateTime.Now;
         }
     }
 }
