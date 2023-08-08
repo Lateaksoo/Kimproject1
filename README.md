@@ -33,4 +33,4 @@ ERD 설계
 
 상품 추가 탭(이미지 업로드)
 
-![Alt text](image-2.png)
+![image-2](https://github.com/Lateaksoo/Kimproject1/assets/118418830/44e3c753-ea7a-403d-b899-172775783e53)
