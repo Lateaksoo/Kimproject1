@@ -16,7 +16,11 @@
 - 네이버쇼핑 검색 클릭 추이 API 활용 : 검색트렌드 차트로 시각화
 - Json 파일로 데이터베이스 데이터 저장, 불러오기
 
-[제작 시연 영상]
+<br>
+
+### **[제작 시연 영상]**
+
+<br>
 
 [제작 시연 영상]: https://www.youtube.com/watch?app=desktop&v=_sKquu_-n84&list=PLedGoSru794_Yr2H12lOkCSZo3Y-VFaEk&index=2&pp=iAQB&ab_channel=MasterCode
 
